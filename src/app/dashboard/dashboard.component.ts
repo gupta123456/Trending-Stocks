@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {DashboardService} from '../dashboard/dashboard.service';
-
+import { DashboardService } from '../dashboard/dashboard.service';
+declare var $: any;
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -8,11 +8,18 @@ import {DashboardService} from '../dashboard/dashboard.service';
 })
 export class DashboardComponent implements OnInit {
 
-  data:any;
-  constructor(private service:DashboardService) { }
+  data: any;
+  dtOptions: DataTables.Settings = {};
+  constructor(private service: DashboardService) { }
 
   ngOnInit(): void {
-    this.service.getTrendingTickets().subscribe(res=>{
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      processing: true
+    };
+
+    this.service.getTrendingTickets().subscribe(res => {
       console.log(res);
       this.data = res;
     })
