@@ -8,21 +8,20 @@ declare var $: any;
 })
 export class DashboardComponent implements OnInit {
 
-  data: any;
+  data:any;
   dtOptions: DataTables.Settings = {};
   constructor(private service: DashboardService) { }
 
   ngOnInit(): void {
+    this.service.getTrendingTickets().subscribe(res => {
+      this.data = res;
+      console.log(this.data);
+    })
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5,
       processing: true
     };
-
-    this.service.getTrendingTickets().subscribe(res => {
-      console.log(res);
-      this.data = res;
-    })
   }
 
 }
